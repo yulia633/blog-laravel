@@ -12,19 +12,19 @@
 </template>
 
 <script>
-import { onMounted } from "vue";
+import { onMounted } from 'vue'
 
-import usePosts from "../api/usePosts";
+import usePosts from '../api/usePosts'
 
 export default {
   setup() {
-    const { posts, fetchPosts } = usePosts();
+    const { posts, fetchPosts } = usePosts()
 
-    onMounted(fetchPosts);
+    onMounted(fetchPosts)
 
     return {
       posts,
-    };
+    }
   },
-};
+}
 </script>
