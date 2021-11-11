@@ -1,33 +1,25 @@
-include make-compose.mk
+setup: env-prepare install key db-prepare ide-helper
 
-console:
-	php artisan tinker
+env-prepare:
+	cp -n .env.example .env || true
 
-deploy:
-	git push heroku master
-
-setup: env-prepare sqlite-prepare install key db-prepare ide-helper
-	npm run dev
-
-install-app:
+install:
 	composer install
 
-install-frontend:
-	npm ci
-
-install: install-app install-frontend
-
-start:
-	heroku local -f Procfile.dev
-
-start-app:
-	php artisan serve --host 0.0.0.0 --port 8000
-
-start-frontend:
-	npm run watch
+key:
+	php artisan key:generate
 
 db-prepare:
 	php artisan migrate:fresh --seed
+
+ide-helper:
+	php artisan ide-helper:eloquent
+	php artisan ide-helper:gen
+	php artisan ide-helper:meta
+	php artisan ide-helper:mod -n
+
+start:
+	php artisan serve --host 0.0.0.0 --port 8000
 
 lint:
 	composer exec phpcs -v
@@ -49,25 +41,7 @@ check: lint analyse test
 config-clear:
 	php artisan config:clear
 
-env-prepare:
-	cp -n .env.example .env || true
-
-sqlite-prepare:
-	touch database/database.sqlite
-
-key:
-	php artisan key:generate
-
-ide-helper:
-	php artisan ide-helper:eloquent
-	php artisan ide-helper:gen
-	php artisan ide-helper:meta
-	php artisan ide-helper:mod -n
-
-lint-js:
-	npm run lint-js
-
-lint-js-fix:
-	npm run lint-js-fix
+console:
+	php artisan tinker
 
 .PHONY: test

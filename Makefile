@@ -1,10 +1,13 @@
+
+deploy:
+	# git push heroku master
+
+# install: install-app install-frontend
+
 compose: compose-clear compose-build compose-setup compose-start
 
 compose-start:
 	docker-compose up --abort-on-container-exit
-
-compose-start-database:
-	docker-compose up -d database
 
 compose-stop:
 	docker-compose stop || true
@@ -19,11 +22,17 @@ compose-logs:
 	docker-compose logs -f
 
 compose-setup:
-	docker-compose build
 	docker-compose run --rm application make setup
+	docker-compose run --rm frontend make setup
 
-compose-bash:
+compose-app-bash:
 	docker-compose run --rm application bash
+
+compose-frontend-bash:
+	docker-compose run --rm frontend bash
+
+compose-app-console:
+	docker-compose run --rm application make console
 
 compose-build:
 	docker-compose build
@@ -31,16 +40,10 @@ compose-build:
 compose-install: compose-app-install compose-frontend-install
 
 compose-app-install:
-	docker-compose run --rm application make install-app
+	docker-compose run --rm application make install
 
 compose-frontend-install:
-	docker-compose run --rm frontend make install-frontend
-
-compose-database-start:
-	docker-compose up --build -d database
-
-compose-database-stop:
-	docker-compose stop database
+	docker-compose run --rm frontend make install
 
 compose-db-prepare:
 	docker-compose run --rm application make db-prepare
@@ -51,17 +54,20 @@ compose-lint:
 compose-lint-fix:
 	docker-compose run --rm application make lint-fix
 
-compose-test:
+compose-app-test:
 	docker-compose run application make test
 
-compose-test-coverage:
+compose-app-test-coverage:
 	docker-compose run --rm application make test-coverage
 
-compose-check:
+compose-app-check:
 	docker-compose run --rm application make check
 
+compose-adminer:
+	docker-compose up --abort-on-container-exit adminer
+
 ci:
-	docker-compose -f docker-compose.ci.yml -p hexlet-sicp-ci build
-	docker-compose -f docker-compose.ci.yml -p hexlet-sicp-ci run application make setup
-	docker-compose -f docker-compose.ci.yml -p hexlet-sicp-ci up --abort-on-container-exit
-	docker-compose -f docker-compose.ci.yml -p hexlet-sicp-ci down -v --remove-orphans
+	# docker-compose -f docker-compose.ci.yml -p hexlet-sicp-ci build
+	# docker-compose -f docker-compose.ci.yml -p hexlet-sicp-ci run application make setup
+	# docker-compose -f docker-compose.ci.yml -p hexlet-sicp-ci up --abort-on-container-exit
+	# docker-compose -f docker-compose.ci.yml -p hexlet-sicp-ci down -v --remove-orphans

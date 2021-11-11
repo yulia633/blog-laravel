@@ -1,0 +1,57 @@
+version: '3'
+
+services:
+
+  database:
+    image: postgres:13.2-alpine
+    environment:
+      POSTGRES_HOST_AUTH_METHOD: trust
+    ports:
+      - 54320:5432
+    networks:
+      - blog-laravel
+    volumes:
+    - blog-laravel-pgdata:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer:latest
+    ports:
+      - 8080:8080
+    depends_on:
+      - database
+    networks:
+      - blog-laravel
+    environment:
+      ADMINER_DEFAULT_SERVER: database
+
+  application:
+    build: ./blog-api
+    volumes:
+      - ./blog-api:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - database
+    networks:
+      - blog-laravel
+    command: ["make", "start"]
+
+  frontend:
+    build: ./blog-client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - application
+    volumes:
+      - ./blog-client:/app
+    networks:
+      - blog-laravel
+    environment:
+      API_URL: 'http://application:8000/'
+    command: ["make", "start"]
+
+volumes:
+  blog-laravel-pgdata:
+
+networks:
+  blog-laravel:
