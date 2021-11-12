@@ -1,10 +1,12 @@
-
-deploy:
-	# git push heroku master
+# deploy:
+# 	git push heroku master
 
 # install: install-app install-frontend
 
-compose: compose-clear compose-build compose-setup compose-start
+# compose: compose-clear compose-build compose-setup compose-start
+
+# compose: 
+# 	compose-build compose-setup compose-start
 
 compose-start:
 	docker-compose up --abort-on-container-exit
@@ -28,9 +30,11 @@ compose-setup:
 compose-app-bash:
 	docker-compose run --rm application bash
 
+#зайти в приложение в контейнере
 compose-frontend-bash:
 	docker-compose run --rm frontend bash
 
+#зайти в тинкер в приложение в контейнере
 compose-app-console:
 	docker-compose run --rm application make console
 

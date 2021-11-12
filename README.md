@@ -1,12 +1,11 @@
 # Laravel-blog
 
-## Проект с бэкендом на Laravel и фронтендом на фреймворке Vue.js
+## Проект с api на Laravel и фронтендом на Vue.js
 
 ## Особенности
 
 - Маршруты API для получения данных с бэкенда
 - Авторизация и регистрация с помощью Laravel Sanctum
-- Миграции для базы данных и сидеры для начального наполнения
 
 ## Технологии
 
@@ -24,14 +23,11 @@
 
 ```sh
 cd laravel-blog
-cd blog-api
 docker-compose up --d
 ```
 
 Для сборки фронтенда
 
 ```sh
-cd laravel-blog
-cd blog-client
-npm run dev
+# to do
 ```
