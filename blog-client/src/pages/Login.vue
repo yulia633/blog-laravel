@@ -37,10 +37,12 @@
 <script>
 import { useStore } from 'vuex'
 import { reactive, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
 export default {
   setup() {
     const store = useStore()
+    const router = useRouter()
 
     const errors = ref({})
 
@@ -50,7 +52,10 @@ export default {
     })
 
     const attemptLogin = () => {
-        store.dispatch('login', form).catch((e) => {
+        store.dispatch('login', form).then(() => {
+            router.replace({ name: 'admin.posts'})
+        })
+        .catch((e) => {
             if (e.response.status === 422) {
                 errors.value = e.response.data.errors
             }
