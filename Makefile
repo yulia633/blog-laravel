@@ -27,6 +27,7 @@ compose-setup:
 	docker-compose run --rm application make setup
 	docker-compose run --rm frontend make setup
 
+#зайти в приложение Laravel в контейнере
 compose-app-bash:
 	docker-compose run --rm application bash
 
