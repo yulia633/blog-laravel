@@ -14,12 +14,12 @@
                 <div class="flex items-center space-x-6">
                     <p class="text-base text-gray-500">
                         <span class="inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium"
-                        :class="{'bg-green-100 text-green-800': post.published, 'bg-gray-100 text-gray-800': !post.published}">
+                        :class="{ 'bg-green-100 text-green-800': post.published, 'bg-gray-100 text-gray-800': !post.published }">
                             {{ !post.published ? 'Unublished' : 'Published'}}
                         </span>
                     </p>
                     <div>
-                        <router-link to="/" class="text-sm font-medium">Edit</router-link>
+                        <router-link :to="{ name: 'admin.posts.edit', params: { slug: post.slug } }" class="text-sm font-medium">Edit</router-link>
                     </div>
                     <div>
                         <button class="text-sm font-medium">Delete</button>
