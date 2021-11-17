@@ -2,10 +2,15 @@
 
 ## Проект с api на Laravel и фронтендом на Vue.js
 
+Данное приложение сделано по [видео-курсу](https://codecourse.com/watch/build-a-blog-with-laravel-and-vue) и охватывает обширный стек технологий
+
 ## Особенности
 
 - Маршруты API для получения данных с бэкенда
-- Авторизация и регистрация с помощью Laravel Sanctum
+- Авторизация и регистрация с помощью Laravel Sanctum и Fortify
+- БД Postgres: генерация файлов миграции, работа с БД с использованием Eloquent
+- Vue Composition API
+- Используется tiptap editor
 
 ## Технологии
 
