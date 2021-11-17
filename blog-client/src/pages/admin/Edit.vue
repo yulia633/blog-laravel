@@ -1,4 +1,19 @@
 <template>
+<div>
+    <div class="absolute w-full left-0 top-0 p-6 flex justify-between items-center space-x-6">
+        <div class="flex-grow flex items-center">
+            <span class="mr-1">/</span> <input type="text" class="p-0 border-none focus:ring-0 w-full" v-model="post.slug">
+        </div>
+        <div class="flex items-center space-x-6">
+            <div>
+                <span class="text-sm text-gray-500">Autosaved</span>
+            </div>
+            <button class="text-sm font-medium">
+                Published
+            </button>
+            <router-link :to="{ name: 'post', params: { uuid: post.uuid } }" class="text-sm font-medium text-gray-800">Preview</router-link>
+        </div>
+    </div>
     <div>
         <ResizeTextarea v-if="post.title">
             <template v-slot:default="{ resize, el }">
@@ -7,6 +22,7 @@
             </template>
         </ResizeTextarea>
     </div>
+</div>
 </template>
 
 <script>
